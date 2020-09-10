@@ -1,0 +1,51 @@
+Scenario Outline: Validate error message on Position parameters command field when
+Given user access “send Command “ section of “Mars Rover control”  webpage
+When A user enters <Position Parameters> in “Position parameters command” field on the “Mars Rover control” web page
+And A user clicks the “Send Position Parameter “ Button on the “Mars Rover control”  webpage
+Then A user should see the “<error>” message “<Message>” on the page.
+
+Example:
+Position Parameters| error | message  |Description
+6 7 N |Outside the boundary defined| Please enter the position within 5 5 | User entered position parameters outside the boundary defined
+1 2 Z |Undefined direction | Please enter E, W, S, N only | User entered undefined direction
+1 Z |Both coordinates missing | Please enter both X and Y coordinator | User didn’t entered both the coordinates
+1 2 3 |Undefined direction | Please enter E, W, S, N only | User Entered numeric field in direction
+
+
+
+Scenario Outline: Validate error message on Move command field when
+Given user access “Move Command “ section of “Mars Rover control”  webpage
+When A user enters <Movement command> in “Move command” field on the “Mars Rover control” web page
+And A user clicks the “Send move command “ Button on the “Mars Rover control”  webpage
+Then A user should see the “<error>” message “<Message>” on the page.
+
+Example:
+Move Command| error | message  |Description
+LRMZRM |Invalid Move Command| Please enter L, R, M only | User entered wrong movement command
+MMMMMMM |Outside the boundary defined |Please keep move count with respect to boundary defined | Mount count will create the postions outside the boundary
+
+
+
+Scenario Outline: Validate error message on Define Boundary field when
+Given user access “send Command “ section of “Mars Rover control”  webpage
+ When A user enters <Boundary Parameters> in “Boundary parameters” field on the “Mars Rover control” web page
+And A user clicks the “Send Boundary “ Button on the “Mars Rover control”  webpage
+Then A user should see the “<error>” message “<Message>” on the page.
+
+Example:
+Boundary Parameters| error | message  |Description
+0 0 |Not a valid Boundary| Please enter other than 0 0 | User entered wrong boundary values
+3 -2| Not a valid Boundary| Please enter rectangle boundary parameters | User entered invalid boundary values
+
+
+
+Scenario Outline: Validate error message on Position parameters command field without Boundary field when
+Given user access “send Command “ section of “Mars Rover control”  webpage
+ When A user enters <Position Parameters> in “Position parameters command” field on the “Mars Rover control” web page
+And A user clicks the “Send Position Parameter “ Button on the “Mars Rover control”  webpage
+Then A user should see the “<error>” message “<Message>” on the page.
+
+Example:
+Position Parameters| error | message  |Description
+1 2 N |Boundary field should be defined first| Please enter boundary first | User entered position parameters without boundary defined
+
